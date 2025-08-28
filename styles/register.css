@@ -1,0 +1,47 @@
+@import url('./theme.css');
+
+#steps-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#form-container {
+    max-width: 695px !important;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #858C95;
+}
+
+.step div{
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #EAEBF0;
+    border-radius: 100%;
+
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+.step span{
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.step-divider {
+    display: flex;
+    align-items: center;
+}

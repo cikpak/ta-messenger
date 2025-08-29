@@ -30,19 +30,33 @@
 
         <div id="form-container">
             <div id="steps-container">
-                <div class="step ">
-                    <div>1</div>
+                <div class="step step-active step-completed">
+                    <div class="step-circle"> 
+                        <span class="step-index hidden">1</span>
+
+                        <svg class="" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
                     <span>Account information</span>
                 </div>
 
                 <div class="step-divider">
                     <svg width="33" height="2" viewBox="0 0 33 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="#EAEBF0" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
+                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="#0A77FF" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
                     </svg>
                 </div>
 
-                <div class="step"> 
-                    <div>2</div>
+                <div class="step step-active">
+                    <div class="step-circle"> 
+                        <span class="step-index">2</span>
+
+                        <svg class="hidden" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
                     <span>Email</span>
                 </div>
 
@@ -53,7 +67,14 @@
                 </div>
 
                 <div class="step">
-                    <div>3</div>
+                    <div class="step-circle"> 
+                        <span class="step-index">3</span>
+
+                        <svg class="hidden" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
                     <span>Password</span>
                 </div>
 
@@ -64,30 +85,95 @@
                 </div>
 
                 <div class="step">
-                    <div>4</div>
+                    <div class="step-circle"> 
+                        <span class="step-index">4</span>
+
+                        <svg class="hidden" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    
                     <span>Create account</span>
                 </div>
             </div>
 
-            <!-- <h1>Account information</h1>
+            <h1>Account information</h1>
 
-            <form>
+            <form class="hidden" data-step-index="1">
                 <div class="form-row">
-                    <label for="">Email Address</label>
-                    <input  placeholder="Insert your email"/>
+                    <label for="">Your name & surname <span class="field-required">*</span></label>
+                    <input placeholder="Insert name" required/>
                 </div>
 
                 <div class="form-row">
-                    <label for="">Password</label>
-                    <input placeholder="Insert your password"/>
+                    <label for="">Your country of living <span class="field-required">*</span></label>
+                    <select name="" id="">
+                        <option value="MD">Moldova</option>
+                        <option value="RO">Romania</option>
+                        <option value="UA">Ukraina</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="">Your City</label>
+                    <select name="" id="">
+                        <option value="Chisinau">Chisinau</option>
+                        <option value="Orhei">Orhei</option>
+                        <option value="Balti">Balti</option>
+                    </select>
                 </div>
 
                 <div id="submit-btn-container">
                     <button type="submit" class="btn-primary btn-full">
-                        Sign In
+                        Next step
                     </button>
                 </div>
-            </form> -->
+            </form>
+
+            <form class="hidden" data-step-index="2">
+                <div class="form-row">
+                    <label for="">Email address <span class="field-required">*</span></label>
+                    <input placeholder="Insert email" required/>
+                </div>
+
+                <div id="submit-btn-container">
+                    <button type="submit" class="btn-primary btn-full">
+                        Next step
+                    </button>
+                </div>
+            </form>
+
+            <form class="hidden" data-step-index="3">
+                <div class="form-row">
+                    <label for="">Password <span class="field-required">*</span></label>
+                    <input type="password" placeholder="Type your password" required/>
+
+                    <p class="field-description">
+                        Tha password should be at least 6 characters, use a upper case and special character.
+                    </p>
+                </div>
+
+                <div class="form-row">
+                    <label for="">Password confirmation <span class="field-required">*</span></label>
+                    <input type="password" placeholder="Repeat your password" required/>
+                </div>
+
+                <div id="submit-btn-container">
+                    <button type="submit" class="btn-primary btn-full">
+                        Next step
+                    </button>
+                </div>
+            </form>
+
+            <div class="registration-success" data-step-index="4">
+                <p>Congratulations, you have now created your account!</p>
+
+                <img src="./images/registration-success.png" alt="Registration success">
+
+                <button class="btn-primary btn-full">
+                    Let’s star chatting!
+                </button>
+            </div>
 
             <div id="form-footer">
                 <p>

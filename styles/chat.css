@@ -1,0 +1,17 @@
+#sidebar {
+    width: 100%;
+    max-width: 300px;
+}
+
+#chat {
+    width: 100%;
+}
+
+#chat-header {
+    width: 100%;
+}
+
+main {
+    align-items: stretch !important;
+    height: 100vh;
+}

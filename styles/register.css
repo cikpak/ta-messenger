@@ -45,3 +45,25 @@
     display: flex;
     align-items: center;
 }
+
+.step-active > span{
+    color: var(--primary);
+}
+
+.step-active div {
+    background-color: var(--primary);
+    color: white
+}
+
+.registration-success {
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    color: #858C95;
+}
+
+.registration-success img {
+    max-width: 352px;
+    
+    margin: 32px auto;
+}

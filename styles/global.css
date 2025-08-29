@@ -59,7 +59,7 @@ label {
     width: fit-content;
 }
 
-input {
+input, select {
     font-size: 15px;
     line-height: 22px;
     color: #858C95;
@@ -74,7 +74,7 @@ input {
     width: 100%;
 }
 
-input:focus {
+input:focus, select:focus {
     outline: none;
 }
 
@@ -151,4 +151,20 @@ a:hover {
     color: #858C95;
     font-size: 16px;
     line-height: 24px;
+}
+
+.field-required {
+    color: var(--primary);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.field-description {
+    font-size: 14px;
+    line-height: 20px;
+    color: #858C95;
+
+    margin-top: 8px;
 }

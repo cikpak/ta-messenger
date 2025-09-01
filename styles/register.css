@@ -46,8 +46,36 @@
     align-items: center;
 }
 
+.step-divider svg {
+    color: #EAEBF0;
+}
+
+.step-divider-passed svg {
+    color: var(--primary) !important;
+}
+
 .step-active > span{
     color: var(--primary);
+}
+
+.step-completed .step-index {
+    display: none;
+}
+
+.step-completed svg {
+    display: block !important;
+}
+
+.step-completed {
+    color: var(--primary);
+}
+
+.step-completed .step-circle {
+    background-color: var(--primary);
+}
+
+.step-active svg {
+    display: none;
 }
 
 .step-active div {

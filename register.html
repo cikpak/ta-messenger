@@ -30,11 +30,11 @@
 
         <div id="form-container">
             <div id="steps-container">
-                <div class="step step-active step-completed">
+                <div class="step step-active" data-step-order="1">
                     <div class="step-circle"> 
-                        <span class="step-index hidden">1</span>
+                        <span class="step-index">1</span>
 
-                        <svg class="" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
@@ -42,17 +42,17 @@
                     <span>Account information</span>
                 </div>
 
-                <div class="step-divider">
+                <div class="step-divider" data-divider-order="1">
                     <svg width="33" height="2" viewBox="0 0 33 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="#0A77FF" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
+                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
                     </svg>
                 </div>
 
-                <div class="step step-active">
-                    <div class="step-circle"> 
+                <div class="step" data-step-order="2">
+                    <div class="step-circle">
                         <span class="step-index">2</span>
 
-                        <svg class="hidden" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
@@ -60,17 +60,17 @@
                     <span>Email</span>
                 </div>
 
-                <div class="step-divider">
+                <div class="step-divider" data-divider-order="2">
                     <svg width="33" height="2" viewBox="0 0 33 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="#EAEBF0" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
+                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
                     </svg>
                 </div>
 
-                <div class="step">
+                <div class="step" data-step-order="3">
                     <div class="step-circle"> 
                         <span class="step-index">3</span>
 
-                        <svg class="hidden" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
@@ -78,17 +78,17 @@
                     <span>Password</span>
                 </div>
 
-                <div class="step-divider">
+                <div class="step-divider" data-divider-order="3">
                     <svg width="33" height="2" viewBox="0 0 33 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="#EAEBF0" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
+                        <line x1="1.5" y1="1" x2="31.5" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 8"/>
                     </svg>
                 </div>
 
-                <div class="step">
+                <div class="step" data-step-order="4">
                     <div class="step-circle"> 
                         <span class="step-index">4</span>
 
-                        <svg class="hidden" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13.8334 4.66675L6.97149 11.5287C6.71114 11.789 6.28903 11.789 6.02868 11.5287L3.16675 8.66675" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
@@ -132,8 +132,8 @@
 
             <form class="hidden" data-step-index="2" onsubmit="formSubmitHandler(event)">
                 <div class="form-row">
-                    <label for="">Email address <span class="field-required">*</span></label>
-                    <input placeholder="Insert email" required/>
+                    <label for="email">Email address <span class="field-required">*</span></label>
+                    <input placeholder="Insert email" name="email" type="email" required/>
                 </div>
 
                 <div id="submit-btn-container">
@@ -145,8 +145,8 @@
 
             <form class="hidden" data-step-index="3" onsubmit="formSubmitHandler(event)">
                 <div class="form-row">
-                    <label for="">Password <span class="field-required">*</span></label>
-                    <input type="password" placeholder="Type your password" required/>
+                    <label for="password">Password <span class="field-required">*</span></label>
+                    <input type="password" name="password" placeholder="Type your password" required/>
 
                     <p class="field-description">
                         Tha password should be at least 6 characters, use a upper case and special character.
@@ -154,8 +154,8 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="">Password confirmation <span class="field-required">*</span></label>
-                    <input type="password" placeholder="Repeat your password" required/>
+                    <label for="confirmPassword">Password confirmation <span class="field-required">*</span></label>
+                    <input type="password" name="confirmPassword" placeholder="Repeat your password" required/>
                 </div>
 
                 <div id="submit-btn-container">
@@ -170,7 +170,7 @@
 
                 <img src="./images/registration-success.png" alt="Registration success">
 
-                <button class="btn-primary btn-full">
+                <button class="btn-primary btn-full" onclick="completeRegisterHandler()">
                     Let’s star chatting!
                 </button>
             </div>

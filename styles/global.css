@@ -1,5 +1,13 @@
 @import url('./theme.css');
 
+.error-toast {
+  background: #f73a22;
+}
+
+.success-toast {
+  background: rgb(97, 222, 97);
+}
+
 * {
     margin: 0;
 }

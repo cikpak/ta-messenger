@@ -1,5 +1,13 @@
 @import url('./theme.css');
 
+.error-toast {
+  background: #FF453A;
+}
+
+.success-toast {
+  background: rgb(97, 222, 97);
+}
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -14,6 +22,7 @@ html {
 }
 
 main {
+    min-height: 500vh;
     background: white;
     position: relative;
 

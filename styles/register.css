@@ -100,3 +100,72 @@
 .step-completed .step-circle {
     background-color: var(--primary);
 }
+
+.dropdown-wrapper svg {
+    width: 20px;
+    height: 20px;
+
+    position: absolute;
+    right: 16px;
+}
+
+.dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-trigger {
+    font-size: 15px;
+    line-height: 22px;
+    color: #858C95;
+
+    padding: 13px 12px;
+
+    border: 1px solid #EAEBF0;
+    border-radius: 8px;
+    background-color: var(--base);
+
+    box-sizing: border-box;
+    width: 100%;
+
+    cursor: pointer;
+    text-align: left;
+}
+
+.dropdown-menu {
+    min-width: 100%;
+    background-color: white;
+    border: 1px solid #EAEBF0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 9999;
+    list-style: none;
+    padding: 8px 0;
+    border-radius: 8px;
+}
+
+.dropdown-wrapper {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #323539;
+}
+
+.dropdown-menu li:hover {
+    background-color: #ECF4FC;
+    color: var(--primary);
+}
+
+
+
+
+
+
+
+

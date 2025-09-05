@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <link
       href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"
       rel="stylesheet"
@@ -106,21 +108,47 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="country">Your country of living <span class="field-required">*</span></label>
-                    <select name="country">
-                        <option value="MD">Moldova</option>
-                        <option value="RO">Romania</option>
-                        <option value="UA">Ukraina</option>
-                    </select>
+                    <label for="country">Your country of living<span class="field-required">*</span></label>
+
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown" data-dropdown>
+                            <button type="button" class="dropdown-trigger">Select your country</button>
+
+                            <ul class="dropdown-menu hidden">
+                                <li data-value="MD">Moldova</li>
+                                <li data-value="RO">Romania</li>
+                                <li data-value="UA">Ukraina</li>
+                            </ul>
+
+                            <input type="hidden" name="country"/>
+                        </div>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
                 </div>
 
                 <div class="form-row">
-                    <label for="city">Your City</label>
-                    <select name="city">
-                        <option value="Chisinau">Chisinau</option>
-                        <option value="Orhei">Orhei</option>
-                        <option value="Balti">Balti</option>
-                    </select>
+                    <label for="city">Your city of living<span class="field-required">*</span></label>
+
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown" data-dropdown>
+                            <button type="button" class="dropdown-trigger">Select your city</button>
+
+                            <ul class="dropdown-menu hidden">
+                                <li data-value="Chisinau">Chisinau</li>
+                                <li data-value="Orhei">Orhei</li>
+                                <li data-value="Balti">Balti</li>
+                            </ul>
+
+                            <input type="hidden" name="city"/>
+                        </div>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
                 </div>
 
                 <div id="submit-btn-container">
@@ -133,7 +161,7 @@
             <form class="hidden" data-step-index="2" onsubmit="formSubmitHandler(event)">
                 <div class="form-row">
                     <label for="email">Email address <span class="field-required">*</span></label>
-                    <input placeholder="Insert email" name="email" type="email" required/>
+                    <input placeholder="Insert email" name="email" required/>
                 </div>
 
                 <div id="submit-btn-container">
@@ -186,6 +214,7 @@
         </div>
     </main>
 
-    <script src="./scripts/register.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/register.js" type="module"></script>
 </body>
 </html>

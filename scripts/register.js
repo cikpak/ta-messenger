@@ -1,4 +1,5 @@
-import { computePosition, offset, flip, shift } from "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.10/+esm";
+import { computePosition, offset, flip } from "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.10/+esm";
+import authService from './auth.js'
 
 const REGISTER_STEPS = {
     accountInformation : {
@@ -28,7 +29,6 @@ const REGISTER_STEPS = {
                 errors.push('Password should be at least 6 characters.');
             }
 
-            true 
             if(!/[A-Z]/.test(password)) {
                 errors.push('Password should contain at least one uppercase character.');
             }
@@ -81,12 +81,23 @@ const moveToTheNextStep = () => {
     }
 }
 
+const showSuccess = (message) => {
+    Toastify({
+        text: message,
+        className: 'success-toast'
+    }).showToast();
+}
+
+const showError = (error) => {
+    Toastify({
+        text: error,
+        className: 'error-toast'
+    }).showToast();
+}
+
 const showErrors = (errors) => {
     errors.forEach(error => {
-        Toastify({
-            text: error,
-            className: 'error-toast'
-        }).showToast();
+       showError(error);
     })        
 }
 
@@ -117,8 +128,19 @@ const formSubmitHandler = (event) => {
     moveToTheNextStep();
 }
 
-const completeRegisterHandler = () => {
-    console.log('registerPayload :>> ', registerPayload);
+const completeRegisterHandler = async () => {
+    try {
+        const response = await authService.register(registerPayload);
+
+        if(response.success) {
+            showSuccess('Account created successfully!');
+            window.location.href  = "/messenger.html";
+        }else{
+            showError('Registration failed!');
+        }
+    } catch (error) {
+        console.log('error :>> ', error);
+    }
 }
 
 document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
@@ -136,7 +158,7 @@ document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
         if(open) {
             computePosition(button, menu, {
                 placement: "bottom",
-                middleware: [offset(4), flip(), shift()]
+                middleware: [offset(4), flip()]
             }).then(({x, y}) => {
                 Object.assign(menu.style, {
                     left: `${x}px`,
@@ -169,3 +191,4 @@ document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
 })
 
 window.formSubmitHandler = formSubmitHandler;
+window.completeRegisterHandler = completeRegisterHandler;

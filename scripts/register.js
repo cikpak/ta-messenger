@@ -1,4 +1,9 @@
 import { computePosition, offset, flip, shift } from "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.10/+esm";
+import authService from './auth.js';
+
+if (authService.isAuthenticated()) {
+    window.location.href = '/messenger.html';
+}
 
 const REGISTER_STEPS = {
     accountInformation : {
@@ -28,7 +33,6 @@ const REGISTER_STEPS = {
                 errors.push('Password should be at least 6 characters.');
             }
 
-            true 
             if(!/[A-Z]/.test(password)) {
                 errors.push('Password should contain at least one uppercase character.');
             }
@@ -49,11 +53,10 @@ const REGISTER_STEPS = {
     }
 }
 
-const STEPS = Object.keys(REGISTER_STEPS); // ['accountInformation', 'email', 'password', 'registrationSuccess']
-let activeStep = STEPS[0]; // accountInformation
+const STEPS = Object.keys(REGISTER_STEPS);
+let activeStep = STEPS[0];
 
 const stepTitle = document.getElementById('stepTitle');
-
 let registerPayload = {};
 
 const moveToTheNextStep = () => {
@@ -85,12 +88,25 @@ const showErrors = (errors) => {
     errors.forEach(error => {
         Toastify({
             text: error,
-            className: 'error-toast'
+            className: 'error-toast',
+            duration: 3000,
+            gravity: "top",
+            position: "right"
         }).showToast();
     })        
 }
 
-const formSubmitHandler = (event) => {
+const showSuccess = (message) => {
+    Toastify({
+        text: message,
+        className: 'success-toast',
+        duration: 3000,
+        gravity: "top",
+        position: "right"
+    }).showToast();
+}
+
+const formSubmitHandler = async (event) => {
     event.preventDefault();
     const activeStepData = REGISTER_STEPS[activeStep];
 
@@ -114,17 +130,41 @@ const formSubmitHandler = (event) => {
         ...stepData
     }
 
-    moveToTheNextStep();
+    if(activeStep === 'password') {
+        completeRegisterHandler();
+    } else {
+        moveToTheNextStep();
+    }
 }
 
-const completeRegisterHandler = () => {
-    console.log('registerPayload :>> ', registerPayload);
+const completeRegisterHandler = async () => {
+    const submitButton = event.target.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Creating account...';
+
+        try {
+            const result = await authService.register(registerPayload);
+
+            if (result.success) {
+                showSuccess('Account created successfully!');
+                moveToTheNextStep();
+            } else {
+                showErrors([result.error || 'Registration failed. Please try again.']);
+                submitButton.disabled = false;
+                submitButton.textContent = 'Next step';
+            }
+        } catch (error) {
+            showErrors(['An unexpected error occurred. Please try again.']);
+            submitButton.disabled = false;
+            submitButton.textContent = 'Next step';
+        }
+    
+    window.location.href = '/messenger.html';
 }
 
 document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
     const button = dropdown.querySelector(".dropdown-trigger");
     const menu = dropdown.querySelector(".dropdown-menu");
-
     const hiddenInput = dropdown.querySelector("input[type='hidden']");
 
     let open = false;
@@ -152,9 +192,7 @@ document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
     menu.querySelectorAll("li").forEach(option => {
         option.addEventListener('click', () => {
             button.textContent = option.textContent;
-
             hiddenInput.value = option.dataset.value;
-
             menu.classList.add('hidden');
             open = false;
         })
@@ -169,3 +207,4 @@ document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
 })
 
 window.formSubmitHandler = formSubmitHandler;
+window.completeRegisterHandler = completeRegisterHandler;

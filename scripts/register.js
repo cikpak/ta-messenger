@@ -1,6 +1,8 @@
 import { computePosition, offset, flip } from "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.10/+esm";
 import authService from './auth.js'
 
+import { showError, showErrors, showSuccess } from './helpers.js'
+
 const REGISTER_STEPS = {
     accountInformation : {
         title: "Account information",
@@ -81,26 +83,6 @@ const moveToTheNextStep = () => {
     }
 }
 
-const showSuccess = (message) => {
-    Toastify({
-        text: message,
-        className: 'success-toast'
-    }).showToast();
-}
-
-const showError = (error) => {
-    Toastify({
-        text: error,
-        className: 'error-toast'
-    }).showToast();
-}
-
-const showErrors = (errors) => {
-    errors.forEach(error => {
-       showError(error);
-    })        
-}
-
 const formSubmitHandler = (event) => {
     event.preventDefault();
     const activeStepData = REGISTER_STEPS[activeStep];
@@ -139,7 +121,7 @@ const completeRegisterHandler = async () => {
             showError('Registration failed!');
         }
     } catch (error) {
-        console.log('error :>> ', error);
+        showError('Failed to register, please try again!');
     }
 }
 

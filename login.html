@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <link
       href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"
       rel="stylesheet"
@@ -31,19 +33,19 @@
         <div id="form-container">
             <h1>Let’s Sign In</h1>
 
-            <form>
+            <form onsubmit="loginHandler(event)">
                 <div class="form-row">
-                    <label for="">Email Address</label>
-                    <input  placeholder="Insert your email"/>
+                    <label for="email">Email Address</label>
+                    <input name="email" value="simion.gorgos@gmail.com" placeholder="Insert your email"/>
                 </div>
 
                 <div class="form-row">
-                    <label for="">Password</label>
-                    <input placeholder="Insert your password"/>
+                    <label for="password">Password</label>
+                    <input name="password" value="Test123!" placeholder="Insert your password"/>
                 </div>
 
                 <div id="submit-btn-container">
-                    <button type="submit" class="btn-primary btn-full">
+                    <button type="submit"id="login-btn" class="btn-primary btn-full">
                         Sign In
                     </button>
                 </div>
@@ -52,12 +54,15 @@
             <div id="form-footer">
                 <p>
                     Don’t have an account?
-                    <a href="" class="link-primary">
+                    <a href="/register.html" class="link-primary">
                         Register
                     </a>
                 </p>
             </div>
         </div>
     </main>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/login.js" type="module" defer></script>
 </body>
 </html>

@@ -91,6 +91,11 @@ input:focus, select:focus {
     outline: none;
 }
 
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .btn-primary {
     background-color: var(--primary);
     color: white;

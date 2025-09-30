@@ -159,6 +159,7 @@ main {
 
     display: flex;
     flex-direction: column;
+    background-color: red;
 
     position: relative;
 }
@@ -167,6 +168,7 @@ main {
     flex-grow: 1;
     height: 1px;
     overflow-y: scroll;
+
 
     display: flex;
     flex-direction: column;

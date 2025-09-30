@@ -1,33 +1,22 @@
-// messenger.js - Protected messenger functionality with JWT
 import authService from './auth.js';
 
-// Check authentication on page load
 if (!authService.isAuthenticated()) {
     window.location.href = '/login.html';
 }
 
-// Get current user info
 const currentUser = authService.getCurrentUser();
-
-// WebSocket connection for real-time messaging
 let ws = null;
 
-// Initialize messenger
 const initializeMessenger = () => {
-    // Initialize WebSocket connection
     initializeWebSocket();
     
-    // Load chat list
     loadChatList();
     
-    // Setup event listeners
     setupEventListeners();
     
-    // Periodically check token validity
     setInterval(checkTokenValidity, 60000);
 }
 
-// Initialize WebSocket for real-time messaging
 const initializeWebSocket = () => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//localhost:3000/ws`;
@@ -37,7 +26,6 @@ const initializeWebSocket = () => {
     ws.onopen = () => {
         console.log('WebSocket connected');
         
-        // Send authentication token
         ws.send(JSON.stringify({
             type: 'auth',
             token: authService.token
@@ -55,12 +43,10 @@ const initializeWebSocket = () => {
     
     ws.onclose = () => {
         console.log('WebSocket disconnected');
-        // Attempt to reconnect after 3 seconds
         setTimeout(initializeWebSocket, 3000);
     };
 }
 
-// Handle incoming WebSocket messages
 const handleWebSocketMessage = (data) => {
     switch(data.type) {
         case 'message':
@@ -74,22 +60,18 @@ const handleWebSocketMessage = (data) => {
     }
 }
 
-// Handle a new user/chat broadcasted from backend
 const handleNewChat = (chat) => {
     const chatsList = document.getElementById('chats-list');
     if (!chatsList) return;
 
-    // Avoid adding self
     if (chat.id === currentUser.id) return;
 
-    // Check if chat already exists
     if (document.querySelector(`[data-chat-id="${chat.id}"]`)) return;
 
     const chatItem = createChatItem(chat);
     chatsList.prepend(chatItem);
 }
 
-// Load chat list from server
 const loadChatList = async () => {
     try {
         const response = await authService.authenticatedRequest('http://localhost:3000/api/chats');
@@ -101,22 +83,18 @@ const loadChatList = async () => {
     }
 }
 
-// Display chat list in sidebar
 const displayChatList = (chats) => {
     const chatsList = document.getElementById('chats-list');
     if (!chatsList) return;
     
-    // Clear existing chats
     chatsList.innerHTML = '';
     
-    // Add each chat
     chats.forEach(chat => {
         const chatItem = createChatItem(chat);
         chatsList.appendChild(chatItem);
     });
 }
 
-// Create a chat item element
 const createChatItem = (chat) => {
     const div = document.createElement('div');
     div.className = 'chat-item';
@@ -142,9 +120,7 @@ const createChatItem = (chat) => {
     return div;
 }
 
-// Select and load a chat
 const selectChat = async (chatId) => {
-    // Update UI to show selected chat
     document.querySelectorAll('.chat-item').forEach(item => {
         item.classList.remove('chat-active');
     });
@@ -154,11 +130,9 @@ const selectChat = async (chatId) => {
         selectedChat.classList.add('chat-active');
     }
     
-    // Load messages for this chat
     await loadMessages(chatId);
 }
 
-// Load messages for a specific chat
 const loadMessages = async (chatId) => {
     try {
         const response = await authService.authenticatedRequest(`http://localhost:3000/api/chats/${chatId}/messages`);
@@ -170,32 +144,27 @@ const loadMessages = async (chatId) => {
     }
 }
 
-// Display messages in the chat area
 const displayMessages = (messages) => {
     const messagesContainer = document.getElementById('messages');
     if (!messagesContainer) return;
     
-    // Clear existing messages except date divider
     const dateDivider = messagesContainer.querySelector('.date-divider');
     messagesContainer.innerHTML = '';
     if (dateDivider) {
         messagesContainer.appendChild(dateDivider);
     }
     
-    // Add messages
     messages.forEach(message => {
         const messageElement = createMessageElement(message);
         messagesContainer.appendChild(messageElement);
     });
     
-    // Scroll to bottom
     const container = document.getElementById('messages-container');
     if (container) {
         container.scrollTop = container.scrollHeight;
     }
 }
 
-// Create a message element
 const createMessageElement = (message) => {
     const div = document.createElement('div');
     const isSent = message.senderId === currentUser.id;
@@ -216,7 +185,6 @@ const createMessageElement = (message) => {
     return div;
 }
 
-// Display a new incoming message
 const displayNewMessage = (message) => {
     const messagesContainer = document.getElementById('messages');
     
@@ -225,18 +193,15 @@ const displayNewMessage = (message) => {
     const messageElement = createMessageElement(message);
     messagesContainer.appendChild(messageElement);
     
-    // Scroll to bottom
     const container = document.getElementById('messages-container');
 
     if (container) {
         container.scrollTop = container.scrollHeight;
     }
     
-    // Update chat list preview
     updateChatPreview(message.chatId, message.content, message.timestamp);
 }
 
-// Update chat preview in sidebar
 const updateChatPreview = (chatId, lastMessage, timestamp) => {
     const chatItem = document.querySelector(`[data-chat-id="${chatId}"]`);
     if (!chatItem) return;
@@ -248,14 +213,11 @@ const updateChatPreview = (chatId, lastMessage, timestamp) => {
     if (time) time.textContent = formatTime(timestamp);
 }
 
-// Setup event listeners
 const setupEventListeners = () => {
-    // Message input
     const messageInput = document.getElementById('message-input');
     const sendButton = document.getElementById('send-icon-wrapper');
     
     if (messageInput && sendButton) {
-        // Send on Enter key
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -263,12 +225,10 @@ const setupEventListeners = () => {
             }
         });
         
-        // Send on button click
         sendButton.addEventListener('click', sendMessage);
     }
 }
 
-// Send a message
 const sendMessage = async () => {
     const messageInput = document.getElementById('message-input');
     if (!messageInput || !messageInput.value.trim()) return;
@@ -296,7 +256,6 @@ const sendMessage = async () => {
     }
 }
 
-// Check token validity
 const checkTokenValidity = () => {
     if (!authService.isAuthenticated()) {
         alert('Your session has expired. Please login again.');
@@ -306,7 +265,6 @@ const checkTokenValidity = () => {
     }
 }
 
-// Utility functions
 const formatTime = (timestamp) => {
     const date = new Date(timestamp);
     const now = new Date();
@@ -325,7 +283,6 @@ const escapeHtml = (text) => {
     return div.innerHTML;
 }
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeMessenger);
 } else {

@@ -47,19 +47,6 @@ const initializeWebSocket = () => {
     };
 }
 
-const handleWebSocketMessage = (data) => {
-    switch(data.type) {
-        case 'message':
-            displayNewMessage(data.message);
-            break;
-        case 'new_chat':
-            handleNewChat(data.chat);
-            break;
-        default:
-            console.log('Unknown message type:', data.type);
-    }
-}
-
 const handleNewChat = (chat) => {
     const chatsList = document.getElementById('chats-list');
     if (!chatsList) return;
@@ -70,54 +57,6 @@ const handleNewChat = (chat) => {
 
     const chatItem = createChatItem(chat);
     chatsList.prepend(chatItem);
-}
-
-const loadChatList = async () => {
-    try {
-        const response = await authService.authenticatedRequest('http://localhost:3000/api/chats');
-        const chats = await response.json();
-        
-        displayChatList(chats);
-    } catch (error) {
-        console.error('Failed to load chats:', error);
-    }
-}
-
-const displayChatList = (chats) => {
-    const chatsList = document.getElementById('chats-list');
-    if (!chatsList) return;
-    
-    chatsList.innerHTML = '';
-    
-    chats.forEach(chat => {
-        const chatItem = createChatItem(chat);
-        chatsList.appendChild(chatItem);
-    });
-}
-
-const createChatItem = (chat) => {
-    const div = document.createElement('div');
-    div.className = 'chat-item';
-    div.dataset.chatId = chat.id;
-    
-    div.innerHTML = `
-        <div class="avatar avatar-small">
-            <img src="${chat.avatar || './images/users/user-1.png'}" alt="${chat.name}">
-        </div>
-        <div>
-            <div class="chat-details">
-                <span class="chat-name">${chat.name}</span>
-                <span class="last-activity">${formatTime(chat.lastActivity)}</span>
-            </div>
-
-            <div class="message-preview">
-                ${chat.lastMessage || 'No messages yet'}
-            </div>
-        </div>
-    `;
-    
-    div.addEventListener('click', () => selectChat(chat.id));
-    return div;
 }
 
 const selectChat = async (chatId) => {
@@ -148,11 +87,7 @@ const displayMessages = (messages) => {
     const messagesContainer = document.getElementById('messages');
     if (!messagesContainer) return;
     
-    const dateDivider = messagesContainer.querySelector('.date-divider');
     messagesContainer.innerHTML = '';
-    if (dateDivider) {
-        messagesContainer.appendChild(dateDivider);
-    }
     
     messages.forEach(message => {
         const messageElement = createMessageElement(message);
@@ -229,32 +164,6 @@ const setupEventListeners = () => {
     }
 }
 
-const sendMessage = async () => {
-    const messageInput = document.getElementById('message-input');
-    if (!messageInput || !messageInput.value.trim()) return;
-    
-    const content = messageInput.value.trim();
-    const activeChat = document.querySelector('.chat-active');
-    
-    if (!activeChat) {
-        alert('Please select a chat first');
-        return;
-    }
-    
-    const chatId = activeChat.dataset.chatId;
-    
-    try {
-        if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({
-                type: 'message',
-                chatId: chatId,
-                content: content
-            }));
-        }
-    } catch (error) {
-        console.error('Failed to send message:', error);
-    }
-}
 
 const checkTokenValidity = () => {
     if (!authService.isAuthenticated()) {

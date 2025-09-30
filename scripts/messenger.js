@@ -27,7 +27,6 @@ const initializeMessenger = () => {
     setInterval(checkTokenValidity, 60000);
 }
 
-
 // Initialize WebSocket for real-time messaging
 const initializeWebSocket = () => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -67,9 +66,27 @@ const handleWebSocketMessage = (data) => {
         case 'message':
             displayNewMessage(data.message);
             break;
+        case 'new_chat':
+            handleNewChat(data.chat);
+            break;
         default:
             console.log('Unknown message type:', data.type);
     }
+}
+
+// Handle a new user/chat broadcasted from backend
+const handleNewChat = (chat) => {
+    const chatsList = document.getElementById('chats-list');
+    if (!chatsList) return;
+
+    // Avoid adding self
+    if (chat.id === currentUser.id) return;
+
+    // Check if chat already exists
+    if (document.querySelector(`[data-chat-id="${chat.id}"]`)) return;
+
+    const chatItem = createChatItem(chat);
+    chatsList.prepend(chatItem);
 }
 
 // Load chat list from server
